@@ -23,7 +23,7 @@ export function PageClient() {
     if (user.selectedTeam) {
       router.replace(`/dashboard/${user.selectedTeam.id}`);
     }
-  }, [user.selectedTeam?.id, router]);
+  }, [user.selectedTeam, router]);
 
   if (teams.length === 0) {
     return (

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { Match, MatchStatus } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -113,9 +114,9 @@ const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
           <span>{match.time}</span>
         </div>
         <div className="flex-grow flex justify-around items-center mb-4">
-          <img src={match.team1.logoUrl} alt={match.team1.name} className="h-12 w-auto object-contain pointer-events-none" />
+          <Image src={match.team1.logoUrl} alt={match.team1.name} width={48} height={48} className="h-12 w-auto object-contain pointer-events-none" />
           <span className="text-xl font-bold text-gray-700 mx-2">VS</span>
-          <img src={match.team2.logoUrl} alt={match.team2.name} className="h-12 w-auto object-contain pointer-events-none" />
+          <Image src={match.team2.logoUrl} alt={match.team2.name} width={48} height={48} className="h-12 w-auto object-contain pointer-events-none" />
         </div>
       </CardContent>
       <CardFooter className="p-3 pt-0">
