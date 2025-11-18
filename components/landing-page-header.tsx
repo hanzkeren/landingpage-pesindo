@@ -68,14 +68,14 @@ function AuthButtons() {
 function MobileItems(props: NavProps) {
   return (
     <div className="fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 animate-in slide-in-from-bottom-80 md:hidden">
-      <div className="relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md">
+      <div className="relative z-20 grid gap-6 rounded-md bg-popover p-4 text-popover-foreground shadow-md max-w-sm mx-auto w-full">
         <nav className="grid grid-flow-row auto-rows-max text-sm">
           {props.items?.map((item, index) => (
             <Link
               key={index}
               href={item.disabled ? "#" : item.href}
               className={cn(
-                "flex w-full items-center rounded-md p-2 text-sm font-medium hover:underline",
+                "flex w-full items-center justify-center text-center rounded-md p-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
                 item.disabled && "cursor-not-allowed opacity-60"
               )}
               target={item.external ? "_blank" : undefined}
@@ -85,7 +85,7 @@ function MobileItems(props: NavProps) {
             </Link>
           ))}
 
-          <div className="flex flex-col gap-2 mt-4">
+          <div className="flex flex-col gap-2 mt-6">
             <AuthButtons />
           </div>
         </nav>
@@ -98,13 +98,13 @@ function DesktopItems(props: NavProps) {
   const segment = useSelectedLayoutSegment();
 
   return (
-    <nav className="hidden gap-6 md:flex">
+    <nav className="hidden md:flex gap-6 justify-center items-center">
       {props.items?.map((item, index) => (
         <Link
           key={index}
           href={item.disabled ? "#" : item.href}
           className={cn(
-            "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm",
+            "flex items-center text-sm font-medium transition-colors hover:text-foreground/80 whitespace-nowrap",
             item.href.startsWith(`/${segment}`)
               ? "text-foreground"
               : "text-foreground/60",
@@ -125,17 +125,29 @@ export function LandingPageHeader(props: NavProps) {
 
   return (
     <header className="fixed w-full z-50 bg-background/80 px-4 md:px-8 backdrop-blur">
-      <div className="flex h-18 items-center justify-between py-4">
-        <div className="flex items-center gap-4 md:gap-10">
-          <Logo className="hidden md:flex" />
+      <div className="mx-auto w-full max-w-7xl grid h-16 items-center grid-cols-[auto_1fr_auto]">
+        {/* Left: logo */}
+        <div className="flex items-center gap-4 md:gap-6 col-start-1 shrink-0">
+          <Logo />
+        </div>
 
+        {/* Center: nav items (desktop) */}
+        <div className="hidden md:flex justify-center col-start-2 min-w-0 flex-1">
           {props.items?.length ? <DesktopItems items={props.items} /> : null}
+        </div>
 
+        {/* Right: actions */}
+        <div className="flex gap-3 items-center justify-end col-start-3 shrink-0">
+          {/* Theme switch sits left of hamburger on mobile */}
+          <ColorModeSwitcher />
+
+          {/* Mobile hamburger at the far right edge */}
           <Button
-            className="space-x-2 md:hidden"
+            className="md:hidden"
             variant="ghost"
             size="icon"
             onClick={() => setShowMobileMenu(!showMobileMenu)}
+            aria-label="Open navigation menu"
           >
             {showMobileMenu ? (
               <X className="h-6 w-6" />
@@ -143,17 +155,10 @@ export function LandingPageHeader(props: NavProps) {
               <Menu className="h-6 w-6" />
             )}
           </Button>
-
-          <Logo className="md:hidden" />
-
-          {showMobileMenu && props.items && <MobileItems items={props.items} />}
-        </div>
-
-        <div className="flex gap-4 items-center">
-          <ColorModeSwitcher />
           <nav className="gap-4 items-center hidden md:flex">
             <AuthButtons />
           </nav>
+          {showMobileMenu && props.items && <MobileItems items={props.items} />}
         </div>
       </div>
     </header>
