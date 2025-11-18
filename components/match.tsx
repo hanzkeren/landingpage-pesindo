@@ -223,9 +223,12 @@ const ScheduleMatch: React.FC = () => {
   return (
     <div className="w-full font-sans">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center mb-6">
-        <h2 className="text-4xl md:text-4xl font-extrabold uppercase tracking-tighter text-black" style={{ fontFamily: "'Anton', sans-serif" }}>
-          Schedule Match
-        </h2>
+        <div className="relative mb-4 w-fit">
+            <h1 className="font-anton text-4xl md:text-5xl lg:text-7xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-black to-white text-neutral-800 dark:text-neutral-200">
+              SCHEDULE MATCH
+            </h1>
+            <div className="absolute left-[160px] top-[8px] h-3 w-10 bg-red-600 z-[-1]"></div>
+        </div>
         <div className="flex items-center space-x-2">
           <Button
             onClick={() => scroll("left")}

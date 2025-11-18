@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import * as React from "react";
 import { ColorModeSwitcher } from "./color-mode-switcher";
-import { Logo } from "./logo";
+import Image from "next/image";
 import { Button, buttonVariants } from "./ui/button";
 
 interface NavProps {
@@ -23,17 +23,11 @@ function SignInSignUpButtons() {
   const app = useStackApp();
   return (
     <>
-      <Link
-        href={app.urls.signIn}
-        className={buttonVariants({ variant: "secondary" })}
-      >
+      <Link href={app.urls.signIn} className={buttonVariants({ variant: "secondary" })}>
         Sign In
       </Link>
 
-      <Link
-        href={app.urls.signUp}
-        className={buttonVariants({ variant: "default" })}
-      >
+      <Link href={app.urls.signUp} className={buttonVariants({ variant: "default" })}>
         Sign Up
       </Link>
     </>
@@ -45,10 +39,7 @@ function AuthButtonsInner() {
 
   if (user) {
     return (
-      <Link
-        href="/dashboard"
-        className={buttonVariants({ variant: "default" })}
-      >
+      <Link href="/dashboard" className={buttonVariants({ variant: "default" })}>
         Dashboard
       </Link>
     );
@@ -74,10 +65,7 @@ function MobileItems(props: NavProps) {
             <Link
               key={index}
               href={item.disabled ? "#" : item.href}
-              className={cn(
-                "flex w-full items-center justify-center text-center rounded-md p-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
-                item.disabled && "cursor-not-allowed opacity-60"
-              )}
+              className={cn("flex w-full items-center justify-center text-center rounded-md p-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors", item.disabled && "cursor-not-allowed opacity-60")}
               target={item.external ? "_blank" : undefined}
               rel={item.external ? "noreferrer" : undefined}
             >
@@ -105,9 +93,7 @@ function DesktopItems(props: NavProps) {
           href={item.disabled ? "#" : item.href}
           className={cn(
             "flex items-center text-sm font-medium transition-colors hover:text-foreground/80 whitespace-nowrap",
-            item.href.startsWith(`/${segment}`)
-              ? "text-foreground"
-              : "text-foreground/60",
+            item.href.startsWith(`/${segment}`) ? "text-foreground" : "text-foreground/60",
             item.disabled && "cursor-not-allowed opacity-80"
           )}
           target={item.external ? "_blank" : undefined}
@@ -124,17 +110,17 @@ export function LandingPageHeader(props: NavProps) {
   const [showMobileMenu, setShowMobileMenu] = React.useState<boolean>(false);
 
   return (
-    <header className="fixed w-full z-50 bg-background/80 px-4 md:px-8 backdrop-blur">
+    <header className="fixed w-full z-50 bg-background/80 px-4 md:px-8 backdrop-trans">
       <div className="mx-auto w-full max-w-7xl grid h-16 items-center grid-cols-[auto_1fr_auto]">
         {/* Left: logo */}
         <div className="flex items-center gap-4 md:gap-6 col-start-1 shrink-0">
-          <Logo />
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.png" alt="Logo Perusahaan" width={120} height={60} className="h-12 w-auto" />
+          </Link>
         </div>
 
         {/* Center: nav items (desktop) */}
-        <div className="hidden md:flex justify-center col-start-2 min-w-0 flex-1">
-          {props.items?.length ? <DesktopItems items={props.items} /> : null}
-        </div>
+        <div className="hidden md:flex justify-center col-start-2 min-w-0 flex-1">{props.items?.length ? <DesktopItems items={props.items} /> : null}</div>
 
         {/* Right: actions */}
         <div className="flex gap-3 items-center justify-end col-start-3 shrink-0">
@@ -142,18 +128,8 @@ export function LandingPageHeader(props: NavProps) {
           <ColorModeSwitcher />
 
           {/* Mobile hamburger at the far right edge */}
-          <Button
-            className="md:hidden"
-            variant="ghost"
-            size="icon"
-            onClick={() => setShowMobileMenu(!showMobileMenu)}
-            aria-label="Open navigation menu"
-          >
-            {showMobileMenu ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+          <Button className="md:hidden" variant="ghost" size="icon" onClick={() => setShowMobileMenu(!showMobileMenu)} aria-label="Open navigation menu">
+            {showMobileMenu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
           <nav className="gap-4 items-center hidden md:flex">
             <AuthButtons />

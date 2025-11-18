@@ -1,5 +1,17 @@
 import { Footer } from "@/components/footer";
 import { LandingPageHeader } from "@/components/landing-page-header";
+import { Inter, Anton } from "next/font/google";
+
+const fontInter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-sans", // Tetapkan Inter sebagai font utama
+});
+
+const fontAnton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-anton", // Tetapkan Anton sebagai font untuk judul
+})
 
 export default function Layout(props: { children: React.ReactNode }) {
   return (

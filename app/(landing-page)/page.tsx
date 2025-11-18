@@ -1,10 +1,9 @@
-import { FeatureGrid } from "@/components/features";
+
+import AboutPage from "@/components/about";
 import { Hero } from "@/components/hero";
 import ScheduleMatch from "@/components/match";
-import { PricingGrid } from "@/components/pricing";
+import { StandingsTable } from "@/components/standings-table";
 import { stackServerApp } from "@/stack";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { ComponentIcon, Users } from "lucide-react";
 
 export default async function IndexPage() {
   const project = await stackServerApp.getProject();
@@ -53,55 +52,10 @@ export default async function IndexPage() {
       <ScheduleMatch />
 
       <div id="pricing" />
-      <PricingGrid
-        title="Pricing"
-        subtitle="Flexible plans for every team."
-        items={[
-          {
-            title: "Basic",
-            price: "Free",
-            description: "For individuals and small projects.",
-            features: [
-              "Full source code",
-              "100% Open-source",
-              "Community support",
-              "Free forever",
-              "No credit card required",
-            ],
-            buttonText: "Get Started",
-            buttonHref: stackServerApp.urls.signUp,
-          },
-          {
-            title: "Pro",
-            price: "$0.00",
-            description: "Ideal for growing teams and businesses.",
-            features: [
-              "Full source code",
-              "100% Open-source",
-              "Community support",
-              "Free forever",
-              "No credit card required",
-            ],
-            buttonText: "Upgrade to Pro",
-            isPopular: true,
-            buttonHref: stackServerApp.urls.signUp,
-          },
-          {
-            title: "Enterprise",
-            price: "Still Free",
-            description: "For large organizations.",
-            features: [
-              "Full source code",
-              "100% Open-source",
-              "Community support",
-              "Free forever",
-              "No credit card required",
-            ],
-            buttonText: "Contact Us",
-            buttonHref: stackServerApp.urls.signUp,
-          },
-        ]}
-      />
+      <AboutPage />
+
+      <div id="standings" />
+      <StandingsTable />
     </>
   );
 }
